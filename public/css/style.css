@@ -1,0 +1,96 @@
+
+
+
+.form-login{
+	margin-top: 100px;
+	
+}
+.x_panel {
+	margin: 100px auto;
+}
+
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th,td {
+	text-align: left;
+	padding: 5px;
+}
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+th {
+	background-color: #4caf50;
+	color: white;
+}
+
+.head-table {
+	margin-bottom: 30px;
+	padding: 0px 0px 20px 0px;
+}
+.search {
+	float: right;
+	margin-right: 45px;
+}
+.head-table .right {
+	margin-bottom: 10px;
+}
+.search .input-search {
+	border-style: none;
+	border: 1px solid #e7e7e7;
+}
+.btn-style {
+	background: #4caf50;
+	color: #fff; 
+	border-style: none;
+	padding: 7px 20px;
+	font-size: 14px;
+	font-style: bold;
+}
+.btn-style:hover {
+	box-shadow: 5px 5px 5px #aaafb4;
+	-moz-box-shadow: 5px 5px 5px #aaafb4;
+	-webkit-box-shadow: 5px 5px 5px #aaafb4;
+}
+/*.btn-delete {
+	background: #f2f2f2;
+	color: #fff;
+	border-style: none;
+	padding: 7px 20px;
+	font-size: 14px;
+	font-style: bold;
+}
+.btn-style:hover {
+	box-shadow: 5px 5px 5px #aaafb4;
+	-moz-box-shadow: 5px 5px 5px #aaafb4;
+	-webkit-box-shadow: 5px 5px 5px #aaafb4;
+}*/
+
+.form-group a {
+	color: #fff;
+	text-decoration: none;
+	padding: 9px 20px;
+	margin: auto 5px;
+}
+
+.tablenav {
+	float: right;
+}
+
+.avatar {
+	text-align: center;
+	height: 50px;
+	width: 50px;
+}
+.choose-avatar {
+	text-align: center;
+}
+
+.title {
+	text-align: center;
+	margin-bottom: 50px;
+}
+

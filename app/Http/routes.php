@@ -11,6 +11,27 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('/employees','EmployeesController');
+
+Route::group(['middleware' => 'auth'], function() {
+	Route::resource('/employees','EmployeesController');
+	Route::get('employees/{id}/delete',['as'=>'employees.delete', 'uses'=>'EmployeesController@delete']);
+});
+
+// Route::get('/login','AuthController@getLogin');
+Route::get('auth/login', ['as'=>'login','uses'=>'Auth\AuthController@getLogin']);
+Route::post('auth/login', ['as'=>'postLogin','uses'=>'Auth\AuthController@postLogin']);
+
+Route::get('auth/logout', ['as' => 'logout','uses' => 'Auth\AuthController@getLogout',
+]);
+
+
+//Route::controller('/', 'Auth\AuthController');
+// Route::get('dashboard', function () {
+//     return view('layout');
+// });
