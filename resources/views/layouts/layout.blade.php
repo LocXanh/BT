@@ -42,9 +42,13 @@
 	<div class="container">
 		<div class="x_panel">
 			@yield('content')
+			
 		</div>	
 	</div>
 	<footer>
+		<div class="copyright">
+			<P>Copyright &copy; by Uyen Nguyen Developer, 2017</P>
+		</div>
 	</footer>
 
 	<script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>

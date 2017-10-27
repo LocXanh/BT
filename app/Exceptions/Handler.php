@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use PDOException;
+use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -45,7 +47,20 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
              return response()->view('errors.'.'404');
         }
+        if ($e instanceof PDOException) {
+            # code...
+             return response()->view('errors.S-Error');
+        }
+        if ($e instanceof QueryException) {
+            # code...
+             return response()->view('errors.S-Error');
+        }
+        if ($e instanceof \Exception) {
+            # code...
+             return response()->view('errors.S-Error');
+        }
 
         return parent::render($request, $e);
+        
     }
 }

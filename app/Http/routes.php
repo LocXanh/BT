@@ -30,6 +30,10 @@ Route::post('auth/login', ['as'=>'postLogin','uses'=>'Auth\AuthController@postLo
 Route::get('auth/logout', ['as' => 'logout','uses' => 'Auth\AuthController@getLogout',
 ]);
 
+// Route::get('error',['as' => 'error',function() {
+// 	return view('errors.404');
+// }]);
+
 
 //Route::controller('/', 'Auth\AuthController');
 // Route::get('dashboard', function () {

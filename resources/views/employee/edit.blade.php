@@ -1,7 +1,6 @@
 @extends('employee.add')
-
-@section('title')
-Update Employee Information
+@section('subtitle')
+Edit
 @stop
 
 @section('action')

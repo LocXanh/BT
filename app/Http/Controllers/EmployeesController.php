@@ -9,6 +9,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\Http\Requests\EditEmployeeRequest;
 use App\Http\Controllers\Controller;
 use Core\Services\EmployeeServiceContract;
+use DB;
 
 class EmployeesController extends Controller
 {
@@ -55,7 +56,9 @@ class EmployeesController extends Controller
     public function store(EmployeeRequest $request)
     {
         //
-       
+       try {
+
+        DB::beginTransaction();
         if ($request->avatar!= null) {
             # code...
              $file_name = $request->file('avatar')->getClientOriginalName();
@@ -74,6 +77,13 @@ class EmployeesController extends Controller
         $this->service->store($data);
 
         return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Register new employee success !']);
+
+        DB::commit();
+           
+       } catch (Exception $e) {
+           DB::rollback();
+           return redirect('/error')->with([ 'flash_level'=>'danger', 'flash_message'=>'Employee not save success to database !']);
+       }
     }
 
     /**
@@ -142,10 +152,21 @@ class EmployeesController extends Controller
     public function destroy($id)
     {
         //
+        try {
+
+            DB::beginTransaction();
+            $this->service->destroy($id);
         
-        $this->service->destroy($id);
+            return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Delete employee success !']);
+            DB::commit();
+            
+        } catch (Exception $e) {
+            DB::rollback();
+             return redirect('/error')->with([ 'flash_level'=>'success', 'flash_message'=>'Delete employee not success !']);
+            
+        }
         
-        return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Delete employee not success !']);
+        
        
     }
     public function delete($id)

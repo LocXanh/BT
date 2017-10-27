@@ -46,7 +46,7 @@ class AuthController extends Controller {
 
         );  
         
-        if($this ->auth ->attempt($login)){
+        if($this ->auth->attempt($login)){
             return redirect('/employees');
         }else{
             return redirect() ->back()->with([ 'flash_level'=>'danger', 'flash_message'=>'LoginID or password not match !']);

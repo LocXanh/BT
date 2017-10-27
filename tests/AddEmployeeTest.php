@@ -26,6 +26,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.index'));
         $this->see('Register new employee success ');
     }
@@ -38,6 +39,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.index'));
         $this->see('Register new employee success ');
     }
@@ -51,6 +53,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0-1-3','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.index'));
         $this->see('Register new employee success ');
     }
@@ -63,6 +66,7 @@ class AddEmployeeTest extends TestCase
         $this->type('09-1133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.index'));
         $this->see('Register new employee success ');
     }
@@ -76,6 +80,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Email field invalids format ');
     }
@@ -88,6 +93,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Email field invalids format ');
     }
@@ -103,6 +109,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999111133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Phone number can not too 255 character ');
     }
@@ -116,6 +123,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Phone field invalids format ');
     }
@@ -129,6 +137,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Phone field invalids format ');
     }
@@ -141,6 +150,7 @@ class AddEmployeeTest extends TestCase
         $this->type('09990001133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Phone field invalids format ');
     }
@@ -154,6 +164,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0d990001133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Phone field invalids format ');
     }
@@ -167,6 +178,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0d990001133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
+        $this->press('OK');
         $this->seePageIs(route('employees.create'));
         $this->see('Phone field invalids format ');
     }
