@@ -32,15 +32,20 @@
             }
 
             .title {
-                font-size: 72px;
-                margin-bottom: 40px;
+                font-size: 40px;
+               /* margin-bottom: 40px;*/
+            }
+            .message {
+                font-size: 20px;
+                color: #000;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">CAN'T CONNECT DATABASE</div>
+                <div class="title">HAS AN ERROR WHEN CONNECTING TO THE DATABASE</div>
+               
             </div>
         </div>
     </body>

@@ -9,5 +9,6 @@ interface EmployeeRepositoryContract
 	public function update($id, $data);
 	public function destroy($id);
 	public function list();
+	public function listEmployeesOfDepartment($department_id);
 	public function search($data);
 }

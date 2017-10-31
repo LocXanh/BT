@@ -47,6 +47,11 @@ class EmployeeRepository implements EmployeeRepositoryContract
 		$emp = $this->find($id);
 		return $emp->destroy($id);
 	}
+	public function listEmployeesOfDepartment($department_id)
+	{
+		$emps = $this->emp->where('department_id',$department_id)->paginate(10);
+		return $emps;
+	}
 
 	public function search($keyword){
 		$emps = $this->emp->where('name', 'LIKE', '%'.$keyword.'%')->paginate(10);

@@ -80,9 +80,10 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Email field invalids format ');
+        // $this->press('OK');
+        // $this->seePageIs(route('employees.create'));
+        $this->see('Vui lòng khớp với định dạng được yêu cầu ');
+       $this->dontSee('Register new employee success');
     }
     public function email_invalid_format_case2()
     {
@@ -93,10 +94,10 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Email field invalids format ');
+        $this->see('Vui lòng khớp với định dạng được yêu cầu ');
     }
+
+
 
 
 
@@ -104,14 +105,12 @@ class AddEmployeeTest extends TestCase
     {
         $this->visit(route('employees.create'));
         $this->type('ABC','name');
-        $this->type('xmail.com','email');
+        $this->type('xmail@gmail.com','email');
         $this->type('ABC','address');
         $this->type('0999111133-3333','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Phone number can not too 255 character ');
+        $this->see('Vui lòng khớp với định dạng được yêu cầu');
     }
 
     public function phone_invalid_format_case1()
@@ -123,9 +122,8 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Phone field invalids format ');
+        $this->see('Vui lòng khớp với định dạng được yêu cầu');
+        
     }
 
     public function phone_invalid_format_case4()
@@ -137,9 +135,7 @@ class AddEmployeeTest extends TestCase
         $this->type('0999-1133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Phone field invalids format ');
+        $this->see('Vui lòng khớp với định dạng được yêu cầu');
     }
     public function phone_invalid_format_case2()
     {
@@ -150,9 +146,7 @@ class AddEmployeeTest extends TestCase
         $this->type('09990001133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Phone field invalids format ');
+        $this->see('Vui lòng khớp với định dạng được yêu cầu');
     }
 
     public function phone_invalid_format_case3()
@@ -164,23 +158,32 @@ class AddEmployeeTest extends TestCase
         $this->type('0d990001133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Phone field invalids format ');
+        $this->see('Vui lòng khớp với định dạng được yêu cầu');
     }
 
+    public function name_greather_than_255_character()
+    {
+        $this->visit(route('employees.create'));
+        $this->type('12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890','name');
+        $this->type('dddd@fmal.com','email');
+        $this->type('ABC','address');
+        $this->type('0d990001133','phone');
+        $this->type('aaaa.jpg','avatar');
+        $this->press('Register');
+         $this->seePageIs(route('employees.create'));
+    }
     public function email_greather_than_255_character()
     {
         $this->visit(route('employees.create'));
         $this->type('ABC','name');
-        $this->type('12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890','email');
+        $this->type('12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789@012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890.','email');
         $this->type('ABC','address');
         $this->type('0d990001133','phone');
         $this->type('aaaa.jpg','avatar');
         $this->press('Register');
         $this->press('OK');
         $this->seePageIs(route('employees.create'));
-        $this->see('Phone field invalids format ');
+        $this->see('Email can not too 255 character');
     }
 
 }

@@ -104,6 +104,22 @@ th {
 .choose-avatar {
 	text-align: center;
 }
+.choose-avatar .btn-file {
+	margin: 20px auto;
+	float: left;
+}
+.fileUpload {
+	height: 200px;
+	width: 200px;
+	border: 3px solid #ccc;
+	text-align: center;
+}
+.fileUpload .insert-avatar {
+/*	text-align: center;*/
+	height: 100%;
+	width: 100%;
+}
+
 
 .title {
 	text-align: center;

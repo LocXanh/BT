@@ -56,34 +56,25 @@ class EmployeesController extends Controller
     public function store(EmployeeRequest $request)
     {
         //
-       try {
-
-        DB::beginTransaction();
+      
+        $filename = NULL;
         if ($request->avatar!= null) {
             # code...
-             $file_name = $request->file('avatar')->getClientOriginalName();
-             $request->file('avatar')->move('public/upload/image/avatar/',$file_name);
+             $filename = $request->file('avatar')->getClientOriginalName();
+             $request->file('avatar')->move('upload/image/avatar/',$filename);
         }
-        $file_name = '';
         $data = array(
             'name'    => $request->name,
             'address' => $request->address,
             'phone'   => $request->phone,
             'email'   => $request->email,
             'is_delete'=>'0',
-            'avatar'   =>$file_name,
+            'avatar'   => $filename,
         );
 
         $this->service->store($data);
 
         return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Register new employee success !']);
-
-        DB::commit();
-           
-       } catch (Exception $e) {
-           DB::rollback();
-           return redirect('/error')->with([ 'flash_level'=>'danger', 'flash_message'=>'Employee not save success to database !']);
-       }
     }
 
     /**
@@ -120,26 +111,37 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditEmployeeRequest $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
         //
+        try {
+
+        DB::beginTransaction();
+        $file_name = NULL;
         if ($request->avatar!= null) {
             # code...
              $file_name = $request->file('avatar')->getClientOriginalName();
-             $request->file('avatar')->move('public/upload/image/avatar/',$file_name);
+            
+             $request->file('avatar')->move('upload/image/avatar/',$file_name);
         }
-        $file_name = '';
+        
         $data = array(
             'name'    => $request->name,
             'address' => $request->address,
             'phone'   => $request->phone,
             'email'   => $request->email,
             'is_delete'=>'0',
-            'avatar'   =>$file_name,
+            'avatar'   => $file_name,
         );
 
         $this->service->update($id,$data);
-        return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Update employee success !']);
+         DB::commit();
+         return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Update employee success !']);
+           
+       } catch (Exception $e) {
+           DB::rollback();
+           return redirect('employees.index')->with([ 'flash_level'=>'danger', 'flash_message'=>'Update employee not success !']);
+       }
 
     }
 

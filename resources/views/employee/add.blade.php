@@ -30,11 +30,11 @@
 					<div class="choose-avatar">
 						<div class="form-avatar">
 			                <div class="fileUpload">
-			                    <img id="avatar-img"  @section('value_src') src="{{asset('/upload/image/avatar/user.png')}}" @show height="200" alt="Ảnh" style="border: 3px solid #dbdbdb; width: 200px" />
+			                    <img id="avatar-img"  @section('value_src') src="{{url('upload/image/avatar/user.png')}}" @show  alt="Avatar" class="insert-avatar" />
 			                </div> 
 			            </div>
-			            <button type="button" class="btn-style btn-file" onclick="document.getElementById('input-img').click();" style="margin: 20px 0px;">Choose Image </button>
-			            <input id="input-img" type="file" @section('value_avatar') value="" @show name="avatar" style="text-align: center;display: none;" onchange="changeImage(this)">
+			            <button type="button" class="btn-style btn-file" onclick="document.getElementById('input-img').click();">Choose Image </button>
+			            <input id="input-img" type="file" name="avatar" style="text-align: center;display: none;" onchange="changeImage(this)">
 			        </div>
 				</div>
 
@@ -53,7 +53,7 @@
 				    </div>
 				    <div  class="form-group">
 				        <label class="col-xs-4 col-md-3"> Phone  :</label>
-				        <input class="col-xs-8 col-md-9 form-control" id="phone" placeholder="XXXX-XXXX-XXXX" type="text"  title="e.g 0987-942-193" pattern="[0-9]{1,4}-[0-9]{1,4}-[0-9]{1,4}" name="phone" @section('value_phone') value="{{ old('phone') }}"  @show required="required">
+				        <input class="col-xs-8 col-md-9 form-control" id="phone" placeholder="XXXX-XXXX-XXXX" type="text"  title="format:xxxx-xxxx-xxxx" pattern="[0-9]{1,4}-[0-9]{1,4}-[0-9]{1,4}" name="phone" @section('value_phone') value="{{ old('phone') }}"  @show required="required">
 				    </div>
 				</div>
 			</div>
@@ -82,7 +82,7 @@
     }
 
     function confirmAction() {
-        return confirm("Bạn có chắc chắn muốn lưu thông tin ? . Nhấn OK để lưu thông tin vào database")
+        return confirm("Bạn có chắc chắn muốn lưu thông tin ? . Nhấn OK để lưu thông tin vào database");
       }
 
  

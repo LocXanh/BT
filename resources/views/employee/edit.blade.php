@@ -12,15 +12,8 @@ action = "{{route('employees.update', [$emp->id])}}"
 @stop
 
 @section('value_src')
-<?php if ($emp->avatar==null)$image = 'user.png'; 
-else $image = $emp->avatar; ?>
-src = {{asset('upload/image/avatar/'.$image)}}
-@stop
 
-@section('value_avatar')
-<?php if ($emp->avatar !=null) $image = $emp->avatar;
-else $image = 'user.png'; ?>
-value = "{{$image}}"
+src = {{url('upload/image/avatar/'.$emp->avatar)}}
 @stop
 
 @section('value_name')
@@ -42,7 +35,7 @@ value = "{{$emp->phone}}"
 
 
 @section('button_bottom')
-<a href="" class="btn-style">< Back </a>
+<a href="{{route('employees.index')}}" class="btn-style">< Back </a>
 <button type="button" class="btn-style" data-toggle="modal" data-target="#confirmDelete"  ><span class="glyphicon glyphicon-trash"></span> Delete</button>
 <input type="submit" class="btn-style" value="Update >" >
 

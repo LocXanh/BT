@@ -54,24 +54,33 @@
 		  </tr>
 		</thead>
 		<tbody>
-		 @foreach ($emps as $item_employee)
-		 <?php  if($item_employee["avatar"]==null) $image = "user.png" ;
-                else $image = $item_employee["avatar"] ;?>
 
-         <?php if($item_employee['is_delete'] == '1') continue; ?>
-	        <tr>
-	          <td>{{$item_employee['id']}}</td>
-	          <td>{{$item_employee['name']}}</td>
-	          <td>{{$item_employee['address']}}</td>
-	          <td>
-	          	<img src="{!!asset('upload/image/avatar/'.$image)!!}" class="avatar"  alt="avatar">
-	          </td>
-	          <td>{{$item_employee['email']}}</td>
-	          <td>{{$item_employee['phone']}}</td>
-	          <td class="center"> <a  class="btn btn-warning btn-xs" href="{!!  URL::route('employees.edit', $item_employee['id'])  !!}"> <span class="glyphicon glyphicon-pencil"></span></span> Edit</a></td>
-	        </tr>
-	      @endforeach
+	    @if(count($emps) == 0)
+	      <tr>
+	        <td colspan="7" style="text-align: center;"> No employee</td>
+	      </tr>
+	    @else
+			 @foreach ($emps as $item_employee)
+			 <?php
+			   // if($item_employee["avatar"]==null) $image = "user.png" ;
+	     //            else 
+	                	$image = $item_employee['avatar'] ;?>
+
+	         <?php if($item_employee['is_delete'] == '1') continue; ?>
+		        <tr>
+		          <td>{{$item_employee['id']}}</td>
+		          <td>{{$item_employee['name']}}</td>
+		          <td>{{$item_employee['address']}}</td>
+		          <td>
+		          	<img src="{{url('upload/image/avatar/'.$image)}}" class="avatar">
+		          </td>
+		          <td>{{$item_employee['email']}}</td>
+		          <td>{{$item_employee['phone']}}</td>
+		          <td class="center"> <a  class="btn btn-warning btn-xs" href="{!!  URL::route('employees.edit', $item_employee['id'])  !!}"> <span class="glyphicon glyphicon-pencil"></span></span> Edit</a></td>
+		        </tr>
+		      @endforeach
 		  
+		 @endif
 		</tbody>
 	</table>
 </div>

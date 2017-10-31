@@ -13,6 +13,7 @@ class EmployeeSeeder extends Seeder
     public function run()
     {
         //
+        DB::table('employees')->delete();
         $faker = Faker\Factory::create();
         foreach(range(1,50) as $index)
         {
@@ -22,7 +23,7 @@ class EmployeeSeeder extends Seeder
                 'avatar'    => '',
                 'address'   => $faker->address,
                 'is_delete' => '0',
-                'phone'=> $faker->phoneNumber
+                'phone'=> rand(0,9999).'-'.rand(0,9999).'-'.rand(0,9999),
             ]);
         }
     }

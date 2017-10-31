@@ -47,6 +47,10 @@ class EmployeeService implements  EmployeeServiceContract
     {
     	return $this->repository->list();
     }
+    public function listEmployeesOfDepartment($department_id)
+    {
+        return $this->repository->listEmployeesOfDepartment($department_id);
+    }
 
     public function search($search)
     {
