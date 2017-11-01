@@ -22,7 +22,6 @@ class EmployeeSeeder extends Seeder
                 'email'     => $faker->email,
                 'avatar'    => '',
                 'address'   => $faker->address,
-                'is_delete' => '0',
                 'phone'=> rand(0,9999).'-'.rand(0,9999).'-'.rand(0,9999),
             ]);
         }

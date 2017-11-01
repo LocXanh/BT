@@ -4,7 +4,7 @@ Edit
 @stop
 
 @section('action')
-action = "{{route('employees.update', [$emp->id])}}"
+action = "{{route('employees.save', [$emp->id])}}"
 @stop
 
 @section('value')
@@ -36,26 +36,9 @@ value = "{{$emp->phone}}"
 
 @section('button_bottom')
 <a href="{{route('employees.index')}}" class="btn-style">< Back </a>
-<button type="button" class="btn-style" data-toggle="modal" data-target="#confirmDelete"  ><span class="glyphicon glyphicon-trash"></span> Delete</button>
+<a class="btn-style" href="{{route('employees.delete',[$emp->id])}}"  ><span class="glyphicon glyphicon-trash"></span> Delete</a>
 <input type="submit" class="btn-style" value="Update >" >
 
-<div id="confirmDelete" class="modal fade" rol="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Confirm Delete</h4>
-	      </div>
-	      <div class="modal-body">
-	        <p> Do you want to delete information from database ?</p>
-	      </div>
-	      <div class="modal-footer">
-	            <a href="{{route('employees.delete',$emp->id)}}" class="btn-style"> Yes</a>
-		        <button type="button" class="btn-style" data-dismiss="modal">No</button>
-	      </div>
-	    </div>
-	</div>
-</div>
 @stop
 
 

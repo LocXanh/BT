@@ -18,12 +18,12 @@
 
                         <div  class="form-group">
                             <label class="col-xs-4 col-md-3">LoginID</label>
-                            <input class="col-xs-8 col-md-9 form-control" name="loginID" value="{{ old('loginID') }}" required="required">
+                            <input class="col-xs-8 col-md-9 form-control" name="loginID" @if(Session::has('loginID')) value="{!!  Session::get('loginID')!!}" @endif required="required">
                         </div>
 
                         <div class="form-group">
                             <label class="col-xs-4 col-md-3">Password</label>
-                            <input class="col-xs-8 col-md-9 form-control" type="password" name="password" id="password" required="required">
+                            <input class="col-xs-8 col-md-9 form-control" type="password" name="password" @if(Session::has('password')) value="{!!  Session::get('password')!!}" @endif id="password" required="required">
                         </div>
                         @include('blocks.errors')
                         @if(Session::has('flash_message'))

@@ -76,7 +76,9 @@
 		          </td>
 		          <td>{{$item_employee['email']}}</td>
 		          <td>{{$item_employee['phone']}}</td>
-		          <td class="center"> <a  class="btn btn-warning btn-xs" href="{!!  URL::route('employees.edit', $item_employee['id'])  !!}"> <span class="glyphicon glyphicon-pencil"></span></span> Edit</a></td>
+		          <td class="center"> <a  class="btn btn-warning btn-xs" href="{!!  URL::route('employees.edit', $item_employee['id'])  !!}"> <span class="glyphicon glyphicon-pencil"></span></span> Edit</a>
+
+				   </td>
 		        </tr>
 		      @endforeach
 		  

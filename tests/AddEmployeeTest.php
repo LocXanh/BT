@@ -3,9 +3,13 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
+use App\Employee;
 
 class AddEmployeeTest extends TestCase
 {
+   
+  
     /**
      * A basic test example.
      *
@@ -17,173 +21,108 @@ class AddEmployeeTest extends TestCase
     }
 
 
-    public function employee_register_success()
+    
+    public function testEmployeeCreateSuccess()
     {
-    	$this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xxx@mail.com','email');
-        $this->type('ABC','address');
-        $this->type('0999-1133-3333','phone');
-        $this->type('aaaa.jpg','avatar');
+        $faker = Faker\Factory::create();
+        $this->visit(route('login'));
+        $this->type('admin', 'loginID');
+        $this->type('12345678', 'password');
+        $this->press('Login');
+        $this->visit(route('employees.create'));
+        $this->type($faker->name,'name');
+        $this->type($faker->email,'email');
+        $this->type($faker->address,'address');
+        $this->type(rand(0,9999).'-'.rand(0,9999).'-'.rand(0,9999),'phone');
         $this->press('Register');
+        $this->see('Xác nhận thông tin nhân viên');
         $this->press('OK');
-        $this->seePageIs(route('employees.index'));
         $this->see('Register new employee success ');
-    }
-    public function employee_register_success_case2()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xxx@m','email');
-        $this->type('ABC','address');
-        $this->type('0999-1133-3333','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.index'));
-        $this->see('Register new employee success ');
-    }
-
-    public function employee_register_success_case3()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xxx@mail.com','email');
-        $this->type('ABC','address');
-        $this->type('0-1-3','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.index'));
-        $this->see('Register new employee success ');
-    }
-    public function employee_register_success_case4()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xxx@mail.com','email');
-        $this->type('ABC','address');
-        $this->type('09-1133-3333','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.index'));
-        $this->see('Register new employee success ');
-    }
-
-    public function email_invalid_format_case1()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xmail.com','email');
-        $this->type('ABC','address');
-        $this->type('0999-1133-3333','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        // $this->press('OK');
-        // $this->seePageIs(route('employees.create'));
-        $this->see('Vui lòng khớp với định dạng được yêu cầu ');
-       $this->dontSee('Register new employee success');
-    }
-    public function email_invalid_format_case2()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xmail@','email');
-        $this->type('ABC','address');
-        $this->type('0999-1133-3333','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        $this->see('Vui lòng khớp với định dạng được yêu cầu ');
-    }
-
-
-
-
-
-     public function phone_greather_than_14_character()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xmail@gmail.com','email');
-        $this->type('ABC','address');
-        $this->type('0999111133-3333','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        $this->see('Vui lòng khớp với định dạng được yêu cầu');
-    }
-
-    public function phone_invalid_format_case1()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xmail@a','email');
-        $this->type('ABC','address');
-        $this->type('0999-1133','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        $this->see('Vui lòng khớp với định dạng được yêu cầu');
+        $this->click('OK');
+        $this->see('Employee');
         
     }
 
-    public function phone_invalid_format_case4()
+   
+
+    public function testEmail_invalid_format_case1()
     {
+         $faker = Faker\Factory::create();
+        $this->visit(route('login'));
+        $this->type('admin', 'loginID');
+        $this->type('12345678', 'password');
+        $this->press('Login');
         $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xmail@a','email');
-        $this->type('ABC','address');
-        $this->type('0999-1133','phone');
-        $this->type('aaaa.jpg','avatar');
+        $this->type($faker->name,'name');
+        $this->type('xmal.com','email');
+        $this->type($faker->address,'address');
+        $this->type(rand(0,9999).'-'.rand(0,9999).'-'.rand(0,9999),'phone');
         $this->press('Register');
-        $this->see('Vui lòng khớp với định dạng được yêu cầu');
-    }
-    public function phone_invalid_format_case2()
-    {
-        $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xmail@a','email');
-        $this->type('ABC','address');
-        $this->type('09990001133','phone');
-        $this->type('aaaa.jpg','avatar');
-        $this->press('Register');
-        $this->see('Vui lòng khớp với định dạng được yêu cầu');
+        $this->see('Email field invalids format');
     }
 
-    public function phone_invalid_format_case3()
+
+     public function testEmail_invalid_format_case2()
     {
+         $faker = Faker\Factory::create();
+        $this->visit(route('login'));
+        $this->type('admin', 'loginID');
+        $this->type('12345678', 'password');
+        $this->press('Login');
         $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('xmail@a','email');
-        $this->type('ABC','address');
-        $this->type('0d990001133','phone');
-        $this->type('aaaa.jpg','avatar');
+        $this->type($faker->name,'name');
+        $this->type('xmal@.com','email');
+        $this->type($faker->address,'address');
+        $this->type(rand(0,9999).'-'.rand(0,9999).'-'.rand(0,9999),'phone');
         $this->press('Register');
-        $this->see('Vui lòng khớp với định dạng được yêu cầu');
+        $this->see('Email field invalids format');
     }
 
-    public function name_greather_than_255_character()
+     public function testPhone_invalid_format_case2()
     {
+         $faker = Faker\Factory::create();
+        $this->visit(route('login'));
+        $this->type('admin', 'loginID');
+        $this->type('12345678', 'password');
+        $this->press('Login');
         $this->visit(route('employees.create'));
-        $this->type('12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890','name');
-        $this->type('dddd@fmal.com','email');
-        $this->type('ABC','address');
-        $this->type('0d990001133','phone');
-        $this->type('aaaa.jpg','avatar');
+        $this->type($faker->name,'name');
+        $this->type($faker->email,'email');
+        $this->type($faker->address,'address');
+        $this->type('098732','phone');
         $this->press('Register');
-         $this->seePageIs(route('employees.create'));
+        $this->see('Phone field invalids format');
     }
-    public function email_greather_than_255_character()
+    //  public function testPhone_invalid_format_case3()
+    // {
+    //      $faker = Faker\Factory::create();
+    //     $this->visit(route('login'));
+    //     $this->type('admin', 'loginID');
+    //     $this->type('12345678', 'password');
+    //     $this->press('Login');
+    //     $this->visit(route('employees.create'));
+    //     $this->type($faker->name,'name');
+    //     $this->type($faker->email,'email');
+    //     $this->type($faker->address,'address');
+    //     $this->type('0998-233-1b','phone');
+    //     $this->press('Register');
+    //     $this->see('Phone field invalids format');
+    // }
+
+     public function testPhone_greather_than_14_character()
     {
+         $faker = Faker\Factory::create();
+        $this->visit(route('login'));
+        $this->type('admin', 'loginID');
+        $this->type('12345678', 'password');
+        $this->press('Login');
         $this->visit(route('employees.create'));
-        $this->type('ABC','name');
-        $this->type('12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789@012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890.','email');
-        $this->type('ABC','address');
-        $this->type('0d990001133','phone');
-        $this->type('aaaa.jpg','avatar');
+        $this->type($faker->name,'name');
+        $this->type($faker->email,'email');
+        $this->type($faker->address,'address');
+        $this->type('0998-233-1111-11','phone');
         $this->press('Register');
-        $this->press('OK');
-        $this->seePageIs(route('employees.create'));
-        $this->see('Email can not too 255 character');
+        $this->see('Phone number can not too 14 character');
     }
 
 }

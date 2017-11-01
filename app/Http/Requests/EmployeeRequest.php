@@ -26,8 +26,8 @@ class EmployeeRequest extends Request
         return [
             //
             'name'      => 'required|max:255',
-            'email'     => 'required|email|max:255|unique:employees,id',
-            'phone'     => 'required|max:14|unique:employees,id|regex:/[0-9]{1,4}-[0-9]{1,4}-[0-9]{1,4}/',
+            'email'     => 'required|email|max:255|unique:employees',
+            'phone'     => 'required|max:14|unique:employees|regex:/[0-9]{1,4}-[0-9]{1,4}-[0-9]{1,4}/',
             'address'   => 'required',
            
         ];

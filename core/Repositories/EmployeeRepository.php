@@ -45,7 +45,7 @@ class EmployeeRepository implements EmployeeRepositoryContract
 
 	public function destroy($id){
 		$emp = $this->find($id);
-		return $emp->destroy($id);
+        return $emp->destroy($id);
 	}
 	public function listEmployeesOfDepartment($department_id)
 	{

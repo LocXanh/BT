@@ -19,7 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('phone')->unique();
             $table->string('avatar')->nullable();
             $table->string('address');
-            $table->enum('is_delete',['0','1']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

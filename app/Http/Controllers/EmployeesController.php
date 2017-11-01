@@ -36,6 +36,20 @@ class EmployeesController extends Controller
         return view('employee.list',compact('emps'))->with('employees',$emps);
     }
 
+
+    public function register(EmployeeRequest $request)
+    {
+        $filename = NULL;
+        if ($request->avatar!= null) {
+            # code...
+             $filename = $request->file('avatar')->getClientOriginalName();
+             $request->file('avatar')->move('upload/image/avatar/',$filename);
+        }
+       
+        return redirect()->route('employees.confirm-register')->with(['name'=>$request->name,'email'=>$request->email,'phone'=>$request->phone,'avatar'=>$filename,'address'=>$request->address ]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,24 +71,23 @@ class EmployeesController extends Controller
     {
         //
       
-        $filename = NULL;
-        if ($request->avatar!= null) {
-            # code...
-             $filename = $request->file('avatar')->getClientOriginalName();
-             $request->file('avatar')->move('upload/image/avatar/',$filename);
-        }
+        // $filename = NULL;
+        // if ($request->avatar!= null) {
+        //     # code...
+        //      $filename = $request->file('avatar')->getClientOriginalName();
+        //      $request->file('avatar')->move('upload/image/avatar/',$filename);
+        // }
         $data = array(
             'name'    => $request->name,
             'address' => $request->address,
             'phone'   => $request->phone,
             'email'   => $request->email,
-            'is_delete'=>'0',
-            'avatar'   => $filename,
+            'avatar'   => $request->avatar,
         );
 
         $this->service->store($data);
 
-        return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Register new employee success !']);
+        return redirect()->route('notification')->with([ 'notification'=>'Register new employee success !']);
     }
 
     /**
@@ -104,6 +117,20 @@ class EmployeesController extends Controller
         return view('employee.edit',compact('emp',$emp));
     }
 
+
+    public function save(EditEmployeeRequest $request, $id)
+    {
+         $filename = NULL;
+        if ($request->avatar!= null) {
+            # code...
+             $filename = $request->file('avatar')->getClientOriginalName();
+            
+             $request->file('avatar')->move('upload/image/avatar/',$filename);
+        }
+
+        return redirect()->route('employees.confirm-update',[$id])->with(['name'=>$request->name,'email'=>$request->email,'phone'=>$request->phone,'avatar'=>$filename,'address'=>$request->address ]);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -111,36 +138,29 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeRequest $request, $id)
+    public function update(EditEmployeeRequest $request, $id)
     {
         //
         try {
 
         DB::beginTransaction();
-        $file_name = NULL;
-        if ($request->avatar!= null) {
-            # code...
-             $file_name = $request->file('avatar')->getClientOriginalName();
-            
-             $request->file('avatar')->move('upload/image/avatar/',$file_name);
-        }
+       
         
         $data = array(
             'name'    => $request->name,
             'address' => $request->address,
             'phone'   => $request->phone,
             'email'   => $request->email,
-            'is_delete'=>'0',
-            'avatar'   => $file_name,
+            'avatar'   => $request->avatar,
         );
 
         $this->service->update($id,$data);
          DB::commit();
-         return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Update employee success !']);
+         return redirect()->route('notification')->with([ 'notification'=>'Update employee success !']);
            
        } catch (Exception $e) {
            DB::rollback();
-           return redirect('employees.index')->with([ 'flash_level'=>'danger', 'flash_message'=>'Update employee not success !']);
+           return redirect('notification')->with([ 'notification'=>'Update employee not success !']);
        }
 
     }
@@ -154,26 +174,26 @@ class EmployeesController extends Controller
     public function destroy($id)
     {
         //
+        //
         try {
 
-            DB::beginTransaction();
-            $this->service->destroy($id);
-        
-            return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Delete employee success !']);
-            DB::commit();
-            
-        } catch (Exception $e) {
-            DB::rollback();
-             return redirect('/error')->with([ 'flash_level'=>'success', 'flash_message'=>'Delete employee not success !']);
-            
-        }
-        
-        
+        DB::beginTransaction();
+       
+        $this->service->destroy($id);
+         DB::commit();
+         return redirect()->route('notification')->with([ 'notification'=>'Delete employee success !']);
+           
+       } catch (Exception $e) {
+           DB::rollback();
+           return redirect('notification')->with([ 'notification'=>'Delete employee not success !']);
+       }
+           
        
     }
     public function delete($id)
     {
-        $this->service->destroy($id);
-        return redirect()->route('employees.index')->with([ 'flash_level'=>'success', 'flash_message'=>'Delete employee success !']);
+        return redirect()->route('employees.confirm-delete',[$id]);
     }
+
+ 
 }

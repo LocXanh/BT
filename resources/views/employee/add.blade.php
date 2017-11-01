@@ -19,7 +19,7 @@
 
 	<div class="col-md-10 col-md-offset-1 col-xs-12">
 
-		<form class="form-horizontal" @section('action') action="{{ route('employees.store') }}" @show onSubmit="return confirmAction()"  method="POST"  enctype="multipart/form-data">
+		<form class="form-horizontal" @section('action') action="{{ route('employees.register') }}" @show method="POST"  enctype="multipart/form-data">
 			{!! csrf_field() !!}
 
 			@section('value') @show
@@ -45,7 +45,7 @@
 				    </div>
 				    <div  class="form-group">
 				        <label class="col-xs-4 col-md-3">Email :</label>
-				        <input class="col-xs-8 col-md-9 form-control" type="text" title="e.g. example@yahoo.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="email" @section('value_email') value="{{ old('email') }}"  @show  placeholder="example@gmail.com"  name="email"  required="required">
+				        <input class="col-xs-8 col-md-9 form-control" type="text" title="e.g. example@yahoo.com" id="email" @section('value_email') value="{{ old('email') }}"  @show  placeholder="example@gmail.com"  name="email"  required="required">
 				    </div>
 				    <div  class="form-group">
 				        <label class="col-xs-4 col-md-3">Address :</label>
@@ -53,7 +53,7 @@
 				    </div>
 				    <div  class="form-group">
 				        <label class="col-xs-4 col-md-3"> Phone  :</label>
-				        <input class="col-xs-8 col-md-9 form-control" id="phone" placeholder="XXXX-XXXX-XXXX" type="text"  title="format:xxxx-xxxx-xxxx" pattern="[0-9]{1,4}-[0-9]{1,4}-[0-9]{1,4}" name="phone" @section('value_phone') value="{{ old('phone') }}"  @show required="required">
+				        <input class="col-xs-8 col-md-9 form-control" id="phone" placeholder="XXXX-XXXX-XXXX" type="text" name="phone" @section('value_phone') value="{{ old('phone') }}"  @show required="required">
 				    </div>
 				</div>
 			</div>
