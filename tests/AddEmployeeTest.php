@@ -21,7 +21,9 @@ class AddEmployeeTest extends TestCase
     }
 
 
-    
+    /**
+    * test create success
+    */
     public function testEmployeeCreateSuccess()
     {
         $faker = Faker\Factory::create();
@@ -44,7 +46,9 @@ class AddEmployeeTest extends TestCase
     }
 
    
-
+   /**
+    * test email invalid format case1
+    */
     public function testEmail_invalid_format_case1()
     {
          $faker = Faker\Factory::create();
@@ -60,8 +64,10 @@ class AddEmployeeTest extends TestCase
         $this->press('Register');
         $this->see('Email field invalids format');
     }
-
-
+   
+     /**
+    * test email invalid format case1
+    */
      public function testEmail_invalid_format_case2()
     {
          $faker = Faker\Factory::create();
@@ -78,6 +84,9 @@ class AddEmployeeTest extends TestCase
         $this->see('Email field invalids format');
     }
 
+     /**
+    * test phone invalid format case1
+    */
      public function testPhone_invalid_format_case2()
     {
          $faker = Faker\Factory::create();
@@ -93,22 +102,30 @@ class AddEmployeeTest extends TestCase
         $this->press('Register');
         $this->see('Phone field invalids format');
     }
-    //  public function testPhone_invalid_format_case3()
-    // {
-    //      $faker = Faker\Factory::create();
-    //     $this->visit(route('login'));
-    //     $this->type('admin', 'loginID');
-    //     $this->type('12345678', 'password');
-    //     $this->press('Login');
-    //     $this->visit(route('employees.create'));
-    //     $this->type($faker->name,'name');
-    //     $this->type($faker->email,'email');
-    //     $this->type($faker->address,'address');
-    //     $this->type('0998-233-1b','phone');
-    //     $this->press('Register');
-    //     $this->see('Phone field invalids format');
-    // }
 
+
+    /**
+    * test phone invalid format case2
+    */
+     public function testPhone_invalid_format_case1()
+    {
+         $faker = Faker\Factory::create();
+        $this->visit(route('login'));
+        $this->type('admin', 'loginID');
+        $this->type('12345678', 'password');
+        $this->press('Login');
+        $this->visit(route('employees.create'));
+        $this->type($faker->name,'name');
+        $this->type($faker->email,'email');
+        $this->type($faker->address,'address');
+        $this->type('0998-233-1b','phone');
+        $this->press('Register');
+        $this->see('Phone field invalids format');
+    }
+
+    /**
+    * test phone greather than 14 character
+    */
      public function testPhone_greather_than_14_character()
     {
          $faker = Faker\Factory::create();

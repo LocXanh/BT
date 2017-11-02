@@ -51,11 +51,6 @@ class Handler extends ExceptionHandler
             # code...
              return response()->view('errors.S-Error');
         }
-        if ($e instanceof QueryException) {
-            # code...
-             return response()->view('errors.S-Error');
-        }
-
         return parent::render($request, $e);
         
     }

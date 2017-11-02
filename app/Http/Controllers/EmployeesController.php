@@ -69,14 +69,6 @@ class EmployeesController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        //
-      
-        // $filename = NULL;
-        // if ($request->avatar!= null) {
-        //     # code...
-        //      $filename = $request->file('avatar')->getClientOriginalName();
-        //      $request->file('avatar')->move('upload/image/avatar/',$filename);
-        // }
         $data = array(
             'name'    => $request->name,
             'address' => $request->address,
@@ -143,9 +135,7 @@ class EmployeesController extends Controller
         //
         try {
 
-        DB::beginTransaction();
-       
-        
+        DB::beginTransaction(); 
         $data = array(
             'name'    => $request->name,
             'address' => $request->address,

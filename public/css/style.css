@@ -2,11 +2,10 @@
 body {
 	background: #f7f7f7;
 
-	
 }
 
-footer{
-	margin-top: 50px;
+body footer{
+   margin-top: 50px;
    position:fixed;
    bottom:0;
    width:100%;
@@ -28,8 +27,9 @@ footer{
 .x_panel {
 	margin-top: 100px;
 	margin-bottom: 50px;
-	padding: 10px 30px 50px 30px;
+	padding: 10px 30px 80px 30px;
 	background-color: #ffffff;
+	height: 100%;
 }
 .x_panel .title_panel {
 	float: left;

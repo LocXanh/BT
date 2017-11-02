@@ -45,7 +45,7 @@
 				    </div>
 				    <div  class="form-group">
 				        <label class="col-xs-4 col-md-3">Email :</label>
-				        <input class="col-xs-8 col-md-9 form-control" type="text" title="e.g. example@yahoo.com" id="email" @section('value_email') value="{{ old('email') }}"  @show  placeholder="example@gmail.com"  name="email"  required="required">
+				        <input class="col-xs-8 col-md-9 form-control" type="text"  id="email" @section('value_email') value="{{ old('email') }}"  @show  placeholder="example@gmail.com"  name="email"  required="required">
 				    </div>
 				    <div  class="form-group">
 				        <label class="col-xs-4 col-md-3">Address :</label>
@@ -80,10 +80,6 @@
         };
         reader.readAsDataURL(f.files[0]);
     }
-
-    function confirmAction() {
-        return confirm("Bạn có chắc chắn muốn lưu thông tin ? . Nhấn OK để lưu thông tin vào database");
-      }
 
  
 </script>
