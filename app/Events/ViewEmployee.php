@@ -3,21 +3,24 @@
 namespace App\Events;
 
 use App\Events\Event;
+use App\Employee;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class EmployeeRegister extends Event
+class ViewEmployee extends Event
 {
     use SerializesModels;
+    public $emp;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Employee $emp)
     {
         //
+        $this->emp = $emp;
     }
 
     /**

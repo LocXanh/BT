@@ -25,8 +25,10 @@ Route::post('auth/login', ['as'=>'postLogin','uses'=>'Auth\AuthController@postLo
 
 Route::group(['middleware' => 'auth'], function() {
 
-	
-	
+	Route::get('publish', function () {
+		
+		Redis::publish('test-channel',json_encode(['foo' => 'bar']));
+	});
 	
 
 	Route::get('auth/logout', ['as' => 'logout','uses' => 'Auth\AuthController@getLogout']);
@@ -65,14 +67,44 @@ Route::group(['middleware' => 'auth'], function() {
 
 });
 
-// Route::get('/login','AuthController@getLogin');
-
-// Route::get('error',['as' => 'error',function() {
-// 	return view('errors.404');
-// }]);
 
 
-//Route::controller('/', 'Auth\AuthController');
-// Route::get('dashboard', function () {
-//     return view('layout');
-// });
+Route::get('redis',['as' => 'cache',function()
+{
+    $redis = Redis::connection();
+
+    //STRING
+    $redis->set('name', 'Taylor');
+    $name = $redis->get('name');
+
+    //  LIST
+    //  A list is a series of ordered values. Some of the important commands for interacting with lists are RPUSH, LPUSH, LLEN, LRANGE, LPOP, and RPOP.
+    $redis->rpush('friends', 'alice');
+    $redis->rpush('friends', 'tom');
+    $redis->lpush('friends', 'bob');
+    $dosprimeros = $redis->lrange('friends', 0,1);
+    $todos = $redis->lrange('friends', 0,-1);
+    $cuantos = $redis->llen('friends');
+    var_dump($todos);
+
+
+    //  SET
+    //  A set is similar to a list, except it does not have a specific order and each element may only appear once.
+    //  Some of the important commands in working with sets are SADD, SREM, SISMEMBER, SMEMBERS and SUNION.
+    $redis->sadd('superpowers', array('flight', 'run', 'kill'));
+    $values = $redis->smembers('superpowers');
+    $existe = $redis->sismember('superpowers','flight'); // => 1
+    $noexiste = $redis->sismember('superpowers','love'); // => 0
+    var_dump($values);
+
+    //HASH
+    $test = array(
+        'name' => 'Iván',
+        'lastname' => 'Sánchez'
+    );
+    $redis->hmset('me', $test);
+    $me = $redis->hgetall('me');
+    var_dump($me);
+
+
+}]);

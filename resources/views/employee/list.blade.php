@@ -51,6 +51,7 @@
 		    <th>Email</th>
 		    <th>Phone</th>
 		    <th>Action</th>
+		    <th>View</th>
 		  </tr>
 		</thead>
 		<tbody>
@@ -67,6 +68,9 @@
 	                	$image = $item_employee['avatar'] ;?>
 
 	         <?php if($item_employee['is_delete'] == '1') continue; ?>
+	         <?php 
+	               $view = \Redis::get('employee'.$item_employee->id.'view');
+	         ?>
 		        <tr>
 		          <td>{{$item_employee['id']}}</td>
 		          <td>{{$item_employee['name']}}</td>
@@ -76,9 +80,16 @@
 		          </td>
 		          <td>{{$item_employee['email']}}</td>
 		          <td>{{$item_employee['phone']}}</td>
-		          <td class="center"> <a  class="btn btn-warning btn-xs" href="{!!  URL::route('employees.edit', $item_employee['id'])  !!}"> <span class="glyphicon glyphicon-pencil"></span></span> Edit</a>
-
+		          <td class="center">
+		           <a  class="btn btn-warning btn-xs" href="{!!  URL::route('employees.edit', $item_employee['id'])  !!}"> <span class="glyphicon glyphicon-pencil"></span></span> Edit</a>
+		           <a  class="btn btn-primary btn-xs" href="{!!  URL::route('employees.show', $item_employee['id'])  !!}"> <span class="glyphicon glyphicon-eye-open"></span></span> Views</a>
 				   </td>
+				   <td>
+				   	@if($view)
+				   {{$view}}
+				   @else {{0}}
+				   @endif
+					</td>
 		        </tr>
 		      @endforeach
 		  

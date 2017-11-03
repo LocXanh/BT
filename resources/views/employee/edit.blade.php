@@ -13,7 +13,7 @@ action = "{{route('employees.save', [$emp->id])}}"
 
 @section('value_src')
 
-src = {{url('upload/image/avatar/'.$emp->avatar)}}
+src = "{{url('upload/image/avatar/'.$emp->avatar)}}"
 @stop
 
 @section('value_name')

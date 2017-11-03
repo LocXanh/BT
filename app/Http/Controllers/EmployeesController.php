@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 use App\Http\Requests\EmployeeRequest;
 use App\Http\Requests\EditEmployeeRequest;
 use App\Http\Controllers\Controller;
 use Core\Services\EmployeeServiceContract;
-use DB;
+use App\Events\ViewEmployee;
 
 class EmployeesController extends Controller
 {
@@ -35,6 +35,8 @@ class EmployeesController extends Controller
         $emps = $this->service->search($keyword);
         return view('employee.list',compact('emps'))->with('employees',$emps);
     }
+
+    public function 
 
 
     public function register(EmployeeRequest $request)
@@ -90,10 +92,11 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        //
+        
 
-        // $emp = $this->service->find($id);
-        // return view('employees.edit',compact('emp',$emp));
+        $emp = $this->service->find($id);
+        event(new ViewEmployee($emp));
+        return view('employee.show',compact('emp',$emp));
     }
 
     /**

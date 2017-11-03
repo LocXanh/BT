@@ -4,16 +4,15 @@
 
 @include('blocks.errors')
 
+
 <div class="row">
-	<div class="row">
-		<div class="title_panel col-xs-12">
-		<h3> Employee <small> @section('subtitle') Add @show </small></h3>
-	</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-xs-12"><hr></div>
-	</div>
+	<div class="title_panel col-xs-12">
+	<h3> Employee <small> @section('subtitle') Add @show </small></h3>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12"><hr></div>
 </div>
 <div class="row">
 
