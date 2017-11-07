@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Http\Requests\EmployeeRequest;
+use App\Htpp\Requests\FileRequest;
 use App\Http\Requests\EditEmployeeRequest;
 use App\Http\Controllers\Controller;
 use Core\Services\EmployeeServiceContract;
 use App\Events\ViewEmployee;
+use Excel;
+use App\Employee;
 
 class EmployeesController extends Controller
 {
@@ -36,7 +39,7 @@ class EmployeesController extends Controller
         return view('employee.list',compact('emps'))->with('employees',$emps);
     }
 
-    public function 
+
 
 
     public function register(EmployeeRequest $request)
@@ -183,9 +186,71 @@ class EmployeesController extends Controller
            
        
     }
+
     public function delete($id)
     {
         return redirect()->route('employees.confirm-delete',[$id]);
+    }
+
+
+    /**
+    */
+    public function exportListEmployee()
+    {
+        $emps = $this->service->list()->toArray();
+        Excel::create('list-employee',function($excel) use($emps) {
+            $excel->sheet('list', function($sheet) use($emps) {
+                // $sheet->row(1, function($row) {
+
+                //     // call cell manipulation methods
+                //     $row->setBackground('#19979ca');
+
+                // });
+                $sheet->setTitle('Employees');
+                $sheet->fromArray($emps);
+            });
+        })->export('xlsx');
+
+        return redirect()->back();
+    }
+
+
+    public function importFile(Requests\FileRequest $request)
+    {
+        
+             $path = $request->file->getRealPath();
+             $data = Excel::load($path,function($reader) {})->get();
+                // $reader->select(array('name','email','address','phone'))->get();
+             
+             if (!empty($data) && $data->count()) {
+                 # code...
+                foreach ($data as $key => $value) {
+                    # code...
+                    $insert[] = ['email'=>$value->email,'name'=>$value->name,'address'=>$value->address, 'phone'=>$value->phone,'avatar'=> $value->avatar];
+                }
+                if (!empty($insert)) {
+                    try {
+
+                        DB::beginTransaction();
+                        Employee::insert($insert);
+
+                        return back()->with('success','Insert all of file to database successfully.');
+                        DB::commit();
+                        
+                    } catch (PDOException $e) {
+                        DB::rollback();
+                        return back()->with('danger','Insert all is failse'); 
+                         
+                    }
+                    # code...
+                   
+                    return back()->with('success','Insert Record successfully.');
+                }
+
+             }
+
+        return back()->with('danger','Please Check your file, Something is wrong there.');;
+
     }
 
  

@@ -47,10 +47,7 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
               $e = new NotFoundHttpException($e->getMessage(), $e);
         }
-        if ($e instanceof PDOException) {
-            # code...
-             return response()->view('errors.S-Error');
-        }
+    
         return parent::render($request, $e);
         
     }

@@ -61,6 +61,10 @@ Route::group(['middleware' => 'auth'], function() {
 	    	return view('notification');
 	    }]);
 
+        Route::get('/export',['as'=> 'export','uses' => 'EmployeesController@exportListEmployee']);
+
+        Route::post('/import',['as'=>'import','uses'=>'EmployeesController@importFile']);
+
 
 
 	   
@@ -68,7 +72,7 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 
-
+//test Redis
 Route::get('redis',['as' => 'cache',function()
 {
     $redis = Redis::connection();

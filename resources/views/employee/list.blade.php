@@ -7,7 +7,7 @@
             {!!  Session::get('flash_message')!!}
         </div>
 @endif
-
+@include('blocks.errors')
 <div class="row">
 	<div class="row">
 		<div class="title_panel col-xs-12">
@@ -35,6 +35,29 @@
 						<button class="btn-style" type="submit" > Search</button>
 					</div>
 				</form>
+			</div>
+		</div>
+		<div class="col-md-4 left">
+			<div class="form-group">
+				<a href="{!! url('/export') !!}" class="btn-style"> Export File</a>
+			</div>
+		</div>
+		<div class="col-md-8 right">
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				
+				<form class="form-horizontal" method="post" action="{{ route('import')}}" enctype="multipart/form-data">
+					{{ csrf_field() }}
+					<div class="col-md-6">
+						<input type="file" name="file" />
+					</div>
+					<div class="col-md-4">
+				        <input type="submit" class="btn-style" name="" value="Import">
+				    </div>
+
+				</form>
+				
 			</div>
 		</div>
 	</div>
